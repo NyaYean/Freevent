@@ -14,7 +14,7 @@ var app = express();
 app.use(bodyParser());
 app.use(logger('dev'));
 
-// app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
 app.use("/users", userRouter);
 app.use("/events", eventRouter);

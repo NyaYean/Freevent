@@ -9,7 +9,7 @@ var eventRouter = express.Router();
 
 
 // eventRouter.post('/', function(req,res){
-// 	Product
+// 	Event
 // 		.create(req.body)
 // 		.then(function(newProduct){
 // 			res.send(newProduct)
@@ -17,7 +17,7 @@ var eventRouter = express.Router();
 // });
 
 eventRouter.get('/', function(req,res){
-	Product
+	Event
 	  .findAll()
 	  .then(function(products){
 	  	res.send(products)

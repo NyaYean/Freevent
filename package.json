@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --content-base app --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,5 +27,11 @@
     "request": "^2.58.0",
     "sequelize": "^3.3.0",
     "sequelize-cli": "^1.7.0"
+  },
+  "devDependencies": {
+    "angular": "^1.4.3",
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.10.1",
+    "webpack-dev-server": "^1.10.1"
   }
 }
