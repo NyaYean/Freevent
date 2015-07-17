@@ -1,7 +1,7 @@
 /*jshint browser:true */
 'use strict';
-// load Angular
-require('angular');
+// A place to store dependencies
+require('./vendor')();
 // load the main app file
 var appModule = require('../index');
 // replaces ng-app="appName"

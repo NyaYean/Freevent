@@ -1,3 +1,7 @@
-alert('loaded!')
+// alert('loaded!')
 
-module.exports = angular.module('app', []);
+var gem = {name: 'The Rock', size: "Jumbo"}
+var app = module.exports = angular.module('app', []);
+app.controller('StoreController', function () {
+	this.product = gem;
+})

@@ -19,6 +19,7 @@
   "homepage": "https://github.com/NyaYean/Freevent",
   "dependencies": {
     "body-parser": "^1.13.2",
+    "jquery": "^2.1.4",
     "logger": "0.0.1",
     "morgan": "^1.6.1",
     "path": "^0.11.14",
@@ -30,7 +31,11 @@
   },
   "devDependencies": {
     "angular": "^1.4.3",
+    "css-loader": "^0.15.4",
     "node-libs-browser": "^0.5.2",
+    "node-sass": "^3.2.0",
+    "sass-loader": "^1.0.2",
+    "style-loader": "^0.12.3",
     "webpack": "^1.10.1",
     "webpack-dev-server": "^1.10.1"
   }

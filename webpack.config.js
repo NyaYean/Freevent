@@ -1,7 +1,6 @@
 var webpack = require('webpack'),
-path = require('path');
-
-var APP = __dirname + '/app';
+	path = require('path');
+	APP = __dirname + '/app';
 
 module.exports = {
 	context: APP,
@@ -11,5 +10,13 @@ module.exports = {
 	output: {
 		path: APP,
 		filename: 'bundle.js'
+	},
+	module: {
+		loaders: [
+			{
+				test: /\.scss$/,
+				loader: "style!css!sass"
+			}
+		]
 	}
-}
+};
