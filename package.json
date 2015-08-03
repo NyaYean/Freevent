@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --content-base app --hot",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/NyaYean/Freevent",
   "dependencies": {
+    "angular-route": "^1.4.3",
+    "bcrypt": "^0.8.3",
     "body-parser": "^1.13.2",
+    "express-session": "^1.11.3",
     "jquery": "^2.1.4",
     "logger": "0.0.1",
     "morgan": "^1.6.1",

@@ -2,28 +2,37 @@ var express = require("express"),
 		models 	= require("../models");
 
 var User 		= models.users
-var Product = models.products
+var Event = models.events
 
 var userRouter = express.Router()
 
-
+//Create
 userRouter.post('/', function(req, res){
+	var username = req.body.username;
+	var password = req.body.password;
+
+	bcyrpt.hash(password, 10, function(err, hash){	
 		User
-			.create(req.body)
+			.create({
+				username:username,
+				password_digest: hash
+			})
 			.then(function(newUser){
-				res.send(newUser)
+				res.send(newUser);
 			});
+	});	
 });
 
-userRouter.post('/:id/product', function(req, res){
+//Create event for user
+userRouter.post('/:id/event', function(req, res){
 	User
 		.findById(req.params.id)
 		.then(function(user){
-			Product
+			Event
 			.create(req.body)
-			.then(function(newProduct){
+			.then(function(newEvent){
 				user
-				.addProduct(newProduct)
+				.addEvent(newEvent)
 				.then(function(result){
 					res.send(result)
 				});
@@ -31,9 +40,11 @@ userRouter.post('/:id/product', function(req, res){
 		});
 });
 
+
+//Read all Users
 userRouter.get('/', function(req, res){
 		User
-		  .findAll({include: Product})
+		  .findAll({include: Event})
 		  .then(function(product){
 		  	res.send(product);
 		  });
@@ -47,6 +58,7 @@ userRouter.get('/:id', function(req,res){
 		});
 });
 
+//Update User information
 userRouter.put('/:id', function(req,res){
 	var userID = req.params.id;
 	var userParams = req.body;
@@ -62,6 +74,7 @@ userRouter.put('/:id', function(req,res){
 		});
 });
 
+//Delete User
 userRouter.delete("/:id", function(req,res){
 	User
 		.findById(req.params.id)
