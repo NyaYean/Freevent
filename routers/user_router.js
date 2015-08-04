@@ -1,10 +1,14 @@
 var express = require("express"),
-		models 	= require("../models");
+		models 	= require("../models"),
+		request = require('request')
+
 
 var User 		= models.users
 var Event = models.events
 
 var userRouter = express.Router()
+
+
 
 //Create
 userRouter.post('/', function(req, res){

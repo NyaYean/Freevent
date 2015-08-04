@@ -4,6 +4,7 @@ var models = require(__dirname + '/models');
 var logger = require('morgan');
 var bcrypt = require('bcrypt');
 var session = require('express-session')
+var request = require('request')
 
 var User = models.users;
 var Event = models.events;
