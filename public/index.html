@@ -14,50 +14,95 @@
 		<div id="events"></div>
 
 
-		<script type="text/jsx">
-			var EventList = React.createClass({
+		// <script type="text/jsx">
+		// 	var EventList = React.createClass({
 
+		// 		getInitialState: function(){
+		// 			return { events: [] };
+		// 		},
+
+		// 		componentWillMount: function() {
+		// 			this.fetchLatestNews();
+		// 		},
+
+		// 		fetchLatestNews: function(){
+		// 			$.ajax({
+		// 				url: "http://api.nytimes.com/svc/events/v2/listings.json?&filters=free:true&api-key=bc675c9b17f7d8f5d572be364b116367:9:61020068",
+		// 				dataType: 'json',
+		// 				data: {format: 'json'}
+		// 				success: function(result){
+		// 					this.setState({ events: result.results });
+		// 				}.bind(this),
+		// 				error: function() {
+		// 					alert('Error, try again')
+		// 				}
+		// 			});
+		// 		},
+
+		// 		render: function(){
+		// 			return <ol className="posts">
+		// 				{this.state.events.map(function (posts){
+		// 					return (
+
+		// 					)
+		// 				})}
+		// 			</ol>;
+		// 		}
+		// 	});
+
+		// 	var EventParse = React.createClass({
+		// 		render: function() {
+		// 			var eventNodes = this.props.data.map(function(events){
+		// 				<EventList 
+		// 			})
+		// 		}
+		// 	})
+
+		// 	React.render(
+		// 		<EventList  />,
+		// 		document.getElementById('events')
+		// 	)
+
+		// </script>
+		
+		<script type="text/jsx">
+			var EventGist = React.createClass({
 				getInitialState: function(){
-					return { event: [], borough: [] };
+					return {
+						event: ''
+					};
 				},
 
-				componentDidMount:function(){
-					var url ="http://api.nytimes.com/svc/events/v2/listings.json?&filters=free:true&" + this.props.apiKey;
-					$.getJSON(url, function(result){
-
-							if(!result || !result.data || !result.data.length){
-								return;
-							}
-
-							var event = result.data.map(function(p){
-								return { event: p.event };
+				componentDidMount: function(){
+					$.get(this.props.source, function(result){
+						var events = results[0].event_name;
+						if(this.isMounted()){
+							this.setState({
+								event: events
 							});
-
-							self.setState({event: event});
-					});
+						}
+					}.bind(this));
 				},
 
 				render: function(){
-					var self = this;
-
-					var events = this.state.events.map(function(p){
-						return <EventList ref={p.event}
-					});
-
 					return (
 						<div>
-							<h1>Events</h1>
-							<div className="events">{events}</div>
+							{this.state.event}
 						</div>
 					);
 				}
 			});
 
-			React.renderComponent(
-				<EventList apiKey="bc675c9b17f7d8f5d572be364b116367:9:61020068" />,
-				document.getElementById('events')
-			)
+			React.render(
+				<EventGist source = "http://www.api.nytimes.com/svc/events/v2/listings.json?&filters=free:true&api-key=bc675c9b17f7d8f5d572be364b116367:9:61020068" />,
+					document.getElementById('events')
+			);
+
+
+
+
 
 		</script>
+
 	</body>
 </html>
