@@ -11,116 +11,53 @@
 </head>
 	<body>
 		<div id="content"></div>
+		<div id="events"></div>
+
+
 		<script type="text/jsx">
-			var CommentBox = React.createClass({
-				loadCommentsFromServer: function() {
-					$.ajax({
-						url: this.props.url,
-						dataType: 'json',
-						cache: false,
-						success: function(data) {
-							this.setState({data: data});
-						}.bind(this),
-						error: function(xhr, status, err) {
-							console.error(this.props.url, status, err.toString());
-						}.bind(this)
-					});
-				},
-				handleCommentSubmit: function(comment){
-					$.ajax({
-						url: this.props.url,
-						dataType: 'json',
-						type: 'POST', 
-						data: comment,
-						success: function(data) {
-							this.setState({data: data});
-						}.bind(this),
-						error: function(xhr, status, err){
-							console.error(this.props.url, status, err.toString());
-						}.bind(this)
-					});
-				},
+			var EventList = React.createClass({
+
 				getInitialState: function(){
-					return {data: []};
+					return { event: [], borough: [] };
 				},
-				componentDidMount: function() {
-					this.loadCommentsFromServer();
-					setInterval(this.loadCommentsFromServer, this.props.pollInterval);
-				},
-				render: function() {
-					return (
-						<div className="CommentBox">
-							<h1>Comments</h1>
-							<CommentList data={this.state.data} />
-							<CommentForm onCommentSubmit={this.handleCommentSubmit} />
-						</div>
-					);
-				}
-			});
-			
 
-			var CommentList = React.createClass({
-				render: function() {
-					var commentNodes = this.props.data.map(function (comment){
-						return (
-							<Comment author={comment.author}>
-								{comment.text}
-							</Comment>
-						);
+				componentDidMount:function(){
+					var url ="http://api.nytimes.com/svc/events/v2/listings.json?&filters=free:true&" + this.props.apiKey;
+					$.getJSON(url, function(result){
+
+							if(!result || !result.data || !result.data.length){
+								return;
+							}
+
+							var event = result.data.map(function(p){
+								return { event: p.event };
+							});
+
+							self.setState({event: event});
 					});
-					return (
-						<div className="commentList">
-							{commentNodes}
-						</div>
-					);
-				}
-			});
-
-			var CommentForm = React.createClass({
-				handleSubmit: function(e) {
-					console.log(e);
-					e.preventDefault();
-					var author = React.findDOMNode(this.refs.author).value.trim();
-					var text = React.findDOMNode(this.refs.text).value.trim();
-					if (!text || !author){
-						return;
-					}
-					this.props.onCommentSubmit({author: author, text: text});
-					//Will send request to the server
-					React.findDOMNode(this.refs.author).value = '';
-					React.findDOMNode(this.refs.text).value = '';
-					return;
 				},
-				render: function() {
-					return (
-						<form className="commentForm" onSubmit={this.handleSubmit}>
-							<input type="text" placeholder="Your name" ref="author" />
-							<input type="text" placeholder="Say something!!!!" ref="text" />
-							<input type="submit" value="Post" />
-						</form>
-					);
-				}
-			});
 
-			var Comment = React.createClass({
-				render: function() {
-					var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
+				render: function(){
+					var self = this;
+
+					var events = this.state.events.map(function(p){
+						return <EventList ref={p.event}
+					});
+
 					return (
-						<div className="comment">
-							<h2 className="commentAuthor">
-								{this.props.author}
-							</h2>
-							<span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+						<div>
+							<h1>Events</h1>
+							<div className="events">{events}</div>
 						</div>
 					);
 				}
 			});
 
-			React.render(
-				//Source
-				<CommentBox url="comments.json" pollInterval={2000} />,
-				document.getElementById('content')
-			);
+			React.renderComponent(
+				<EventList apiKey="bc675c9b17f7d8f5d572be364b116367:9:61020068" />,
+				document.getElementById('events')
+			)
+
 		</script>
 	</body>
 </html>
