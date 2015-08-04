@@ -74,15 +74,18 @@
 				},
 
 				componentDidMount: function(){
-					$.get(this.props.source, function(result){
-						var events = results[0].event_name;
-						if(this.isMounted()){
-							this.setState({
-								event: events
-							});
-						}
+
+					$.get(this.props.source, function(data){
+						console.log(data);
+					})
+					.then(function(data){
+						this.setState({
+							event:JSON.parse(data)
+						})
 					}.bind(this));
+					
 				},
+
 
 				render: function(){
 					return (
@@ -94,7 +97,7 @@
 			});
 
 			React.render(
-				<EventGist source = "http://www.api.nytimes.com/svc/events/v2/listings.json?&filters=free:true&api-key=bc675c9b17f7d8f5d572be364b116367:9:61020068" />,
+				<EventGist source = "/events/search" />,
 					document.getElementById('events')
 			);
 
