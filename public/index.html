@@ -75,17 +75,31 @@
 
 				componentDidMount: function(){
 
-					$.get(this.props.source, function(data){
-						console.log(data);
-					})
-					.then(function(data){
-						this.setState({
-							event:JSON.parse(data)
-						})
-					}.bind(this));
+				// 	$.get(this.props.source, function(data){
+				// 		console.log(data);
+				// 	})
+				// 	.then(function(data){
+				// 		this.setState({
+				// 			event:data
+				// 		})
+				// 	}.bind(this));
 					
-				},
+				// },
 
+					$.ajax({
+						url: this.props.source,
+						dataType: 'json',
+						success: function(data) {
+							console.log(JSON.parse(data.body).results[0])
+							this.setState({
+								event:JSON.parse(data.body).results
+							});
+						}.bind(this),
+						error: function(xhr, status, err){
+							console.error(this.props.url, status, err.toString());
+						}.bind(this)
+					})
+				},
 
 				render: function(){
 					return (
