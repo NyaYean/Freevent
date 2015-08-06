@@ -7,69 +7,54 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
 </head>
 	<body>
 		<div id="content"></div>
 		<div id="events"></div>
+<body id="page-top">
 
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">FreeVent</a>
+            </div>
 
-		// <script type="text/jsx">
-		// 	var EventList = React.createClass({
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="#about">Event</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#services">About</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
 
-		// 		getInitialState: function(){
-		// 			return { events: [] };
-		// 		},
-
-		// 		componentWillMount: function() {
-		// 			this.fetchLatestNews();
-		// 		},
-
-		// 		fetchLatestNews: function(){
-		// 			$.ajax({
-		// 				url: "http://api.nytimes.com/svc/events/v2/listings.json?&filters=free:true&api-key=bc675c9b17f7d8f5d572be364b116367:9:61020068",
-		// 				dataType: 'json',
-		// 				data: {format: 'json'}
-		// 				success: function(result){
-		// 					this.setState({ events: result.results });
-		// 				}.bind(this),
-		// 				error: function() {
-		// 					alert('Error, try again')
-		// 				}
-		// 			});
-		// 		},
-
-		// 		render: function(){
-		// 			return <ol className="posts">
-		// 				{this.state.events.map(function (posts){
-		// 					return (
-
-		// 					)
-		// 				})}
-		// 			</ol>;
-		// 		}
-		// 	});
-
-		// 	var EventParse = React.createClass({
-		// 		render: function() {
-		// 			var eventNodes = this.props.data.map(function(events){
-		// 				<EventList 
-		// 			})
-		// 		}
-		// 	})
-
-		// 	React.render(
-		// 		<EventList  />,
-		// 		document.getElementById('events')
-		// 	)
-
-		// </script>
+   
 		
 		<script type="text/jsx">
 			var EventGist = React.createClass({
 				getInitialState: function(){
 					return {
-						event: ''
+						eventName: '',
+						venueName: '',
+						borough: '',
+						dateDescription: ''
 					};
 				},
 
@@ -91,8 +76,33 @@
 						dataType: 'json',
 						success: function(data) {
 							console.log(JSON.parse(data.body).results[0])
+
+							var eventList = JSON.parse(data.body).results
+							console.log(eventList)
+
+							var eventName = eventList.map(function(obj){
+								return obj.event_name
+							});
+
+							var venueName = eventList.map(function(obj){
+								return obj.venue_name
+							});
+
+							var borough = eventList.map(function(obj){
+								return obj.borough
+							});
+
+							var dateDescription = eventList.map(function(obj){
+								return obj.date_time_description
+							});
+
+
 							this.setState({
-								event:JSON.parse(data.body).results
+								eventName: eventName,
+								venueName: venueName,
+								borough: borough,
+								dateDescription: dateDescription
+
 							});
 						}.bind(this),
 						error: function(xhr, status, err){
@@ -104,7 +114,21 @@
 				render: function(){
 					return (
 						<div>
-							{this.state.event}
+							<ol>
+								{this.state.eventName}
+							</ol>
+
+							<ol>
+								{this.state.venueName}
+							</ol>
+
+							<ol>
+								{this.state.borough}
+							</ol>
+
+							<ol>
+								{this.state.dateDescription}
+							</ol>
 						</div>
 					);
 				}
@@ -115,11 +139,14 @@
 					document.getElementById('events')
 			);
 
-
-
-
-
 		</script>
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.easing.min.js"></script>
+<script src="js/jquery.fittext.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/creative.js"></script>
 
 	</body>
 </html>
