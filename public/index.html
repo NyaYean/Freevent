@@ -48,28 +48,47 @@
    
 		
 		<script type="text/jsx">
-			var EventGist = React.createClass({
+
+			var EventBox = React.createClass({
+
 				getInitialState: function(){
 					return {
-						eventName: '',
+						data: '',
 						venueName: '',
 						borough: '',
 						dateDescription: ''
 					};
 				},
 
-				componentDidMount: function(){
 
-				// 	$.get(this.props.source, function(data){
-				// 		console.log(data);
-				// 	})
-				// 	.then(function(data){
-				// 		this.setState({
-				// 			event:data
-				// 		})
-				// 	}.bind(this));
-					
-				// },
+				loadEvents: function(){
+					$.ajax({
+						url: this.props.source,
+						dataType: 'json',
+						success: function(data) {
+
+							var eventList = JSON.parse(data.body).results
+
+							this.setState({
+								data: eventList
+
+							});
+						}.bind(this),
+						error: function(xhr, status, err){
+							console.error(this.props.url, status, err.toString());
+						}.bind(this)
+					});
+				}
+
+
+
+
+			});
+
+
+			var EventGist = React.createClass({
+			
+				componentDidMount: function(){
 
 					$.ajax({
 						url: this.props.source,
