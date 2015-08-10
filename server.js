@@ -1,10 +1,11 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var models = require(__dirname + '/models');
-var logger = require('morgan');
-var bcrypt = require('bcrypt');
-var session = require('express-session')
-var request = require('request')
+var express 		= require('express');
+var bodyParser 	= require('body-parser');
+var models  		= require(__dirname + '/models');
+var logger  		= require('morgan');
+var bcrypt  		= require('bcrypt');
+var session 		= require('express-session');
+var request 		= require('request');
+var path 				= require('path');
 
 var User = models.users;
 var Event = models.events;
@@ -18,7 +19,12 @@ app.use(bodyParser());
 app.use(logger('dev'));
 // app.use(morgan('dev'));
 
-app.use(express.static(__dirname + '/public'));
+
+var isProduction = process.env.NODE_ENV === 'production';
+var port = isProduction ? 8080 : 3000;
+var publicPath = path.resolve(__dirname, 'public');
+
+app.use(express.static(publicPath));
 
 
 app.use("/users", userRouter);
@@ -27,7 +33,6 @@ app.use("/events", eventRouter);
 
 module.exports = app;
 
-
-var server = app.listen(3000, function(){
-	console.log('Running on something')
-})
+app.listen(port, function(){
+	console.log('Running on ' + port);
+});

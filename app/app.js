@@ -77,6 +77,26 @@ var EventBox = React.createClass({
 	}
 });
 
+// var EventForm = React.createClass({
+// 	handleSubmit: function(e){
+// 		e.preventDefault();
+// 		var borough = React.findDOMNode(this.refs.borough).value.trim();
+// 		this.props.onCommentSubmit({borough: borough});
+// 		React.findDOMNode(this.refs.text).value = '';
+// 	},
+// 	render: function() {
+// 		return (
+// 			<form className="eventFrom" onSubmit={this.handleSubmit}>
+// 				<select>
+// 					<option value="Manhattan">Manhattan</option>
+// 					<option value="Brooklyn">Brooklyn</option>
+// 					<option value="The Bronx">Bronx</option>
+// 				</select>
+// 			</form>
+// 		)
+// 	}
+// })
+
 React.render(
 	<EventBox url='/events/search' />,
 	document.getElementById('content')
