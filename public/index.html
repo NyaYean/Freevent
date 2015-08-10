@@ -10,10 +10,10 @@
   <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
 </head>
-	<body>
+	<body id="page-top">
 		<div id="content"></div>
 		<div id="events"></div>
-<body id="page-top">
+	<script type="text/jsx;harmony=true" src="js/apper.js"></script>
 
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -45,108 +45,13 @@
         <!-- /.container-fluid -->
     </nav>
 
-   
-		
-		<script type="text/jsx">
-			var EventGist = React.createClass({
-				getInitialState: function(){
-					return {
-						eventName: '',
-						venueName: '',
-						borough: '',
-						dateDescription: ''
-					};
-				},
 
-				componentDidMount: function(){
-
-				// 	$.get(this.props.source, function(data){
-				// 		console.log(data);
-				// 	})
-				// 	.then(function(data){
-				// 		this.setState({
-				// 			event:data
-				// 		})
-				// 	}.bind(this));
-					
-				// },
-
-					$.ajax({
-						url: this.props.source,
-						dataType: 'json',
-						success: function(data) {
-							console.log(JSON.parse(data.body).results[0])
-
-							var eventList = JSON.parse(data.body).results
-							console.log(eventList)
-
-							var eventName = eventList.map(function(obj){
-								return obj.event_name
-							});
-
-							var venueName = eventList.map(function(obj){
-								return obj.venue_name
-							});
-
-							var borough = eventList.map(function(obj){
-								return obj.borough
-							});
-
-							var dateDescription = eventList.map(function(obj){
-								return obj.date_time_description
-							});
-
-
-							this.setState({
-								eventName: eventName,
-								venueName: venueName,
-								borough: borough,
-								dateDescription: dateDescription
-
-							});
-						}.bind(this),
-						error: function(xhr, status, err){
-							console.error(this.props.url, status, err.toString());
-						}.bind(this)
-					})
-				},
-
-				render: function(){
-					return (
-						<div>
-							<ol>
-								{this.state.eventName}
-							</ol>
-
-							<ol>
-								{this.state.venueName}
-							</ol>
-
-							<ol>
-								{this.state.borough}
-							</ol>
-
-							<ol>
-								{this.state.dateDescription}
-							</ol>
-						</div>
-					);
-				}
-			});
-
-			React.render(
-				<EventGist source = "/events/search" />,
-					document.getElementById('events')
-			);
-
-		</script>
-
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.easing.min.js"></script>
-<script src="js/jquery.fittext.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/creative.js"></script>
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/jquery.easing.min.js"></script>
+		<script src="js/jquery.fittext.js"></script>
+		<script src="js/wow.min.js"></script>
+		<script src="js/creative.js"></script>
 
 	</body>
 </html>
