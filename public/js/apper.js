@@ -2,24 +2,19 @@ var Event = React.createClass({
 	render: function(){
 		var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
 		return (
-			<div className="eventBox">
-				<div id="mainDetails">
-					<h3>
-					{this.props.name}
-					{this.props.place}
-					</h3>
-					<h3>
-					{this.props.place}
-					</h3>
+			<div id="eventBox" className="header-content-inner">
+				<div id="mainDetails" className="header-content-inner">
+					
+					<h2>{this.props.name}</h2>
+
+					<h4>{this.props.place}  {this.props.borough}</h4>
+					
 				</div>
 
 				<div className="details">
-					<h3 id="borough">
-						{this.props.borough}
-					</h3>
-					<h3 id="date">
+					<h4 id="date">
 						{this.props.date}
-					</h3>
+					</h4>
 				</div>
 
 				<span dangerouslySetInnerHTML={{__html: rawMarkup}} />
