@@ -15,7 +15,7 @@
 				}
 			})
 
-		
+
 
 			var EventGist = React.createClass({
 				getInitialState: function(){
@@ -81,23 +81,25 @@
 				},
 
 				render: function(){
+
 					return (
 						<div>
-							<ol>
-								{this.state.eventName}
-							</ol>
-
-							<ol>
-								{this.state.venueName}
-							</ol>
-
-							<ol>
-								{this.state.borough}
-							</ol>
-
-							<ol>
-								{this.state.dateDescription}
-							</ol>
+							<h1>Events</h1>						
+								<ol>
+									{this.state.eventName}
+								</ol>
+							<h1>Venue</h1>		
+								<ol>
+									{this.state.venueName}
+								</ol>
+							<h1>Borough</h1>	
+								<ol>
+									{this.state.borough}
+								</ol>
+							<h1>Discription</h1>
+								<ol>
+									{this.state.dateDescription}
+								</ol>
 						</div>
 					);
 				}
